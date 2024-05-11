@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
 
         Thread clientThread = new Thread(() -> {
-            String hostName = "localhost"; // Server IP address or hostname
+            String hostName = "localhost"; // Server IP address
             int port = 8000; // Server port
 
             System.out.println("Connecting to server on port " + port);
@@ -57,7 +57,7 @@ public class Main {
             try (ServerSocket serverSocket = new ServerSocket(port)) {
                 System.out.println("Listening on port " + port);
                 clientThread.start();
-                // The server runs continuously, waiting for clients
+
 
 
 
@@ -65,17 +65,17 @@ public class Main {
                     try (Socket clientSocket = serverSocket.accept()) {
                         System.out.println("Client connected.");
 
-                        // Setting up input and output streams
+
                         BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                         PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 
                         String inputLine;
                         while ((inputLine = in.readLine()) != null) {
                             System.out.println("Received from client: " + inputLine);
-                            out.println("Sending original message from client back: " +inputLine); // Echo the same line back to the client
+                            out.println("Echoing back: " +inputLine); // Echo the same line back to the client
 
 
-                            // Setting up output to client and input from server console
+
                             PrintWriter out2 = new PrintWriter(clientSocket.getOutputStream(), true);
                             BufferedReader serverInput = new BufferedReader(new InputStreamReader(System.in));
 
